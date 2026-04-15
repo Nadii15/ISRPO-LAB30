@@ -19,6 +19,7 @@ public class Hero {
     public Universe Universe { get; set; }
     public int PowerLevel { get; set; } = new();
     public Weapon Weapon { get; set; } = new();
+    public List<string> Powers { get; set; } = new();
 
     [JsonIgnore]
     public string? InternalNotes{ get; set; }
