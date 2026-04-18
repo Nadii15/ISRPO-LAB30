@@ -77,4 +77,14 @@ public class HeroesController : ControllerBase {
             internalNotesAfterDeserialize = deserialized?.InternalNotes ?? "null - поле было проигнорировано"
         });
     }
+
+   [HttpGet("search")]
+    public ActionResult<List<Hero>> Search([FromQuery] string name)
+    {
+        var heroes = HeroesStore.Heroes
+            .Where(h => h.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+    
+        return Ok(heroes);
+    }
 }
