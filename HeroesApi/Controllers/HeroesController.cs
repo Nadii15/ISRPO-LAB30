@@ -8,10 +8,21 @@ namespace HeroesApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class HeroesController : ControllerBase {
+
+
     [HttpGet]
-    public ActionResult<List<Hero>> GetAll() {
-        return Ok(HeroesStore.Heroes);
+    public ActionResult<List<Hero>> GetAll([FromQuery] string? universe = null ) {
+        var heroes = HeroesStore.Heroes;
+    
+        if (!string.IsNullOrEmpty(universe))
+        {
+            heroes = heroes.Where(h => h.Universe.ToString() == universe).ToList();
+        }
+    
+        return Ok(heroes.ToList());
     }
+
+
 
     [HttpGet("{id}")]
     public ActionResult<Hero> GetById(int id) {
